@@ -21,8 +21,27 @@ But this command is already writed over the [CIFAR10 notebook](/SSGAN_Keras_CIFA
 
 ### MNIST Results
 
-MNIST is a 10-class dataset containing images in gray scale. The data is composed by images of handwritten number (as you see below). We train the model using 30 epochs, initial learning rate of 2e-5, Adam optimizer, 128 Batch size, and a label rate of 0.00166 (about 10 labeled samples per class). 
+MNIST is a 10-class dataset containing images in gray scale. The data is composed by images of handwritten number (as you see below).
 
+We train the model using 30 epochs, initial learning rate of 2e-5, Adam optimizer, 128 Batch size, and a label rate of 0.00166 (about 10 labeled samples per class).
+
+You can find the Notebook associate [here](/SSGAN_Keras_MNIST.ipynb). We achieve 93\% in testing.
+
+
+| Original  |  Generated  | Accuracy |
+| ------------------- | ------------------- | ------------------- |
+|  ![MNIST original](/Results/MNIST/original.png) |  ![MNIST Generated](/Results/MNIST/generated_14000.png) | ![MNIST Accuracy](/Results/MNIST/accuracy.png) |
 
 
 ### CIFAR10 Results
+
+CIFAR10 is a 10-class dataset containing images in RGB format. The data is composed by images of 10 different kind of objects like horses, frogs, dogs, cats, etc (as you see below).
+
+We train the model using 200 epochs, initial learning rate of 2e-5, Adam optimizer, 128 Batch size, and a label rate of 1.00 (all labeled dataset).
+
+You can find the Notebook associate [here](/SSGAN_Keras_CIFAR10.ipynb).
+
+| Original  |  Generated  | Accuracy |
+| ------------------- | ------------------- | ------------------- |
+|  ![CIFAR10 original](/Results/CIFAR10/original.png) |  ![CIFAR10 Generated](/Results/CIFAR10/generated_78000.png) | ![CIFAR10 Accuracy](/Results/CIFAR10/accuracy.png) |
+
