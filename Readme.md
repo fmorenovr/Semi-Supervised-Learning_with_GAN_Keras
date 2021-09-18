@@ -25,12 +25,18 @@ MNIST is a 10-class dataset containing images in gray scale. The data is compose
 
 We train the model using 30 epochs, initial learning rate of 2e-5, Adam optimizer, 128 Batch size, and a label rate of 0.00166 (about 10 labeled samples per class).
 
-You can find the Notebook associate [here](/SSGAN_Keras_MNIST.ipynb). We achieve 93\% in testing.
+You can find the Notebook associate [here](/SSGAN_Keras_MNIST.ipynb). 
 
 
-| Original  |  Generated  | Accuracy |
+| Original  |  Generated  | Loss |
 | ------------------- | ------------------- | ------------------- |
-|  ![MNIST original](/Results/MNIST/original.png) |  ![MNIST Generated](/Results/MNIST/generated_14000.png) | ![MNIST Accuracy](/Results/MNIST/accuracy.png) |
+|  ![MNIST original](/Results/MNIST/original.png) |  ![MNIST Generated](/Results/MNIST/generated_14000.png) | ![MNIST Loss](/Results/MNIST/GAN_loss.png) |
+
+We achieve 93\% in testing:
+
+| Loss  |  Accuracy  |
+| ------------------- | ------------------- |
+|  ![MNIST Loss](/Results/MNIST/train_test_loss.png) |  ![MNIST Acc](/Results/MNIST/train_test_acc.png) |
 
 
 ### CIFAR10 Results
