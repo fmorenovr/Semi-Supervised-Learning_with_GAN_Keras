@@ -1,4 +1,6 @@
 import os
+from .CIFAR10 import *
+from .MNIST import *
 
 def verifyFile(files_list):
   return os.path.isfile(files_list)
