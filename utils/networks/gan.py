@@ -16,7 +16,7 @@ def define_gan(generator_model, unsupervised_model, learning_rate = 0.0001):
   model = Model(generator_model.input, gan_output)
   
   # optimizer
-  optimizer_grad = Adam(lr=learning_rate, beta_1=0.15, beta_2=0.999)
+  optimizer_grad = Adam(lr=learning_rate, beta_1=0.5)
   
   # compile model
   model.compile(loss='binary_crossentropy', optimizer=optimizer_grad)

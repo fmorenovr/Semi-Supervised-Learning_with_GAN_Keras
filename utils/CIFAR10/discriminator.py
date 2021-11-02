@@ -23,17 +23,17 @@ def define_discriminator(in_shape=(32,32,3), n_classes=10, learning_rate = 0.000
   fe = LeakyReLU(alpha=0.2)(fe)
   
   # downsample 32x32x3 -> 16x16x128
-  fe = Conv2D(128, (4,4), strides=(2,2), padding='same')(fe) # nn.Conv2d(64, 64 * 2, 4, 2, 1, bias=False)
+  fe = Conv2D(128, (3,3), strides=(2,2), padding='same')(fe) # nn.Conv2d(64, 64 * 2, 4, 2, 1, bias=False)
   fe = BatchNormalization()(fe)
   fe = LeakyReLU(alpha=0.2)(fe)
 
   # downsample 16x16x128 -> 8x8x256
-  fe = Conv2D(256, (4,4), strides=(2,2), padding='same')(fe) # nn.Conv2d(64 * 2, 64 * 4, 4, 2, 1, bias=False)
+  fe = Conv2D(128, (3,3), strides=(2,2), padding='same')(fe) # nn.Conv2d(64 * 2, 64 * 4, 4, 2, 1, bias=False)
   fe = BatchNormalization()(fe)
   fe = LeakyReLU(alpha=0.2)(fe)
   
   # downsample 8x8x256 -> 4x4x512
-  fe = Conv2D(512, (4,4), strides=(2,2), padding='same')(fe) # nn.Conv2d(64 * 4, 64 * 8, 4, 2, 1, bias=False)
+  fe = Conv2D(256, (3,3), strides=(2,2), padding='same')(fe) # nn.Conv2d(64 * 4, 64 * 8, 4, 2, 1, bias=False)
   fe = BatchNormalization()(fe)
   fe = LeakyReLU(alpha=0.2)(fe)
   
@@ -41,9 +41,9 @@ def define_discriminator(in_shape=(32,32,3), n_classes=10, learning_rate = 0.000
   #fe = Conv2D(1, (4,4), strides=(1,1), padding='valid')(fe) # nn.Conv2d(64 * 8, 1, 4, 1, 0, bias=False)
   
   # Flatten feature maps
-  #fe = Flatten()(fe)
+  fe = Flatten()(fe)
   # Global Pooling feature maps
-  fe = GlobalAveragePooling2D()(fe)
+  #fe = GlobalAveragePooling2D()(fe)
   # output layer nodes
   fe = Dense(n_classes)(fe)
   
@@ -51,7 +51,7 @@ def define_discriminator(in_shape=(32,32,3), n_classes=10, learning_rate = 0.000
   c_out_layer = Activation('softmax')(fe)
   
   # optimizer
-  optimizer_grad = Adam(lr=learning_rate, beta_1=0.15, beta_2=0.999)
+  optimizer_grad = Adam(lr=learning_rate, beta_1=0.5)
   
   # define and compile supervised discriminator model
   supervised_model = Model(in_image, c_out_layer)

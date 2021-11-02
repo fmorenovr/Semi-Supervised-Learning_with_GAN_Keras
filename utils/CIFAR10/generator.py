@@ -14,31 +14,31 @@ from keras.layers import GlobalAveragePooling2D, BatchNormalization
 def define_generator(latent_dim=100):
     # image generator input
     in_lat = Input(shape=(latent_dim,))
-    n_nodes = 512 * 4 * 4
+    n_nodes = 256 * 4 * 4
     gen = Dense(n_nodes)(in_lat)
-    gen = BatchNormalization()(gen)
-    gen = ReLU()(gen)
+    #gen = BatchNormalization()(gen)
+    gen = LeakyReLU(alpha=0.2)(gen)
     # upsample 100 -> 4x4x512
-    gen = Reshape((4, 4, 512))(gen)
+    gen = Reshape((4, 4, 256))(gen)
     
     # upsample 4x4x512 -> 8x8x256
-    gen = Conv2DTranspose(256, (4,4), strides=(2,2), padding="same")(gen)
-    gen = BatchNormalization()(gen)
-    gen = ReLU()(gen)
+    gen = Conv2DTranspose(128, (4,4), strides=(2,2), padding="same")(gen)
+    #gen = BatchNormalization()(gen)
+    gen = LeakyReLU(alpha=0.2)(gen)
     
     # upsample 8x8x256 -> 16x16x128
     gen = Conv2DTranspose(128, (4,4), strides=(2,2), padding='same')(gen)
-    gen = BatchNormalization()(gen)
-    gen = ReLU()(gen)
+    #gen = BatchNormalization()(gen)
+    gen = LeakyReLU(alpha=0.2)(gen)
     
     # upsample 16x16x128 -> 32x32x64
-    #gen = Conv2DTranspose(64, (4,4), strides=(2,2), padding='same')(gen)
+    gen = Conv2DTranspose(128, (4,4), strides=(2,2), padding='same')(gen)
     #gen = BatchNormalization()(gen)
-    #gen = ReLU()(gen)
+    gen = LeakyReLU(alpha=0.2)(gen)
     
     # upsample 32x32x64 -> 32x32x3
     #gen = Conv2D(3, (4,4), strides=(1,1), padding='same')(gen)
-    gen = Conv2DTranspose(3, (4,4), strides=(2,2), padding='same')(gen)
+    gen = Conv2D(3, (3,3), strides=(1,1), padding='same')(gen)
     
     # outlayer
     out_layer = Activation('tanh')(gen)
