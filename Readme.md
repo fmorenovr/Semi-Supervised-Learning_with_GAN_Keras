@@ -1,6 +1,6 @@
 # SSL-GAN_Keras
 
-Implementarion of Semi-Supervised GANs from the paper "Improved Techniques for Training GANs". You can find the paper [here](https://arxiv.org/abs/1606.03498).
+Implementarion of Semi-Supervised GANs from the paper ["Improved Techniques for Training GANs"](https://arxiv.org/abs/1606.03498).
 
 To train, just need to install Tensorflow 2 (Im using 2.2 version, stable version in conda). You can try to install using conda:
 
