@@ -36,12 +36,12 @@ def define_generator(latent_dim=100):
     #gen = BatchNormalization()(gen)
     gen = LeakyReLU(alpha=0.2)(gen)
     
-    # upsample 32x32x64 -> 32x32x3
+    # outlayer 32x32x64 -> 32x32x3
     #gen = Conv2D(3, (4,4), strides=(1,1), padding='same')(gen)
-    gen = Conv2D(3, (3,3), strides=(1,1), padding='same')(gen)
+    out_layer = Conv2D(3, (3,3), strides=(1,1), padding='same', activation='tanh')(gen)
     
     # outlayer
-    out_layer = Activation('tanh')(gen)
+    #out_layer = Activation('tanh')(gen)
     
     # define model
     generator_model = Model(in_lat, out_layer)

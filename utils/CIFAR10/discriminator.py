@@ -13,28 +13,28 @@ from utils.networks import custom_activation
 # Both shared the same weights until the last Dense.
 
 # define the standalone supervised and unsupervised discriminator models
-def define_discriminator(in_shape=(32,32,3), n_classes=10, learning_rate = 0.0001):
+def define_discriminator(in_shape=(32,32,3), n_classes=10, learning_rate = 0.0002):
   # image input
   in_image = Input(shape=in_shape)
           
   # downsample 32x32x3 -> 32x32x64
   fe = Conv2D(64, (3, 3), strides=(1,1), padding='same')(in_image) # nn.Conv2d(3, 64, 4, 2, 1, bias=False)
-  fe = BatchNormalization()(fe)
+  #fe = BatchNormalization()(fe)
   fe = LeakyReLU(alpha=0.2)(fe)
   
   # downsample 32x32x3 -> 16x16x128
   fe = Conv2D(128, (3,3), strides=(2,2), padding='same')(fe) # nn.Conv2d(64, 64 * 2, 4, 2, 1, bias=False)
-  fe = BatchNormalization()(fe)
+  #fe = BatchNormalization()(fe)
   fe = LeakyReLU(alpha=0.2)(fe)
 
   # downsample 16x16x128 -> 8x8x256
   fe = Conv2D(128, (3,3), strides=(2,2), padding='same')(fe) # nn.Conv2d(64 * 2, 64 * 4, 4, 2, 1, bias=False)
-  fe = BatchNormalization()(fe)
+  #fe = BatchNormalization()(fe)
   fe = LeakyReLU(alpha=0.2)(fe)
   
   # downsample 8x8x256 -> 4x4x512
   fe = Conv2D(256, (3,3), strides=(2,2), padding='same')(fe) # nn.Conv2d(64 * 4, 64 * 8, 4, 2, 1, bias=False)
-  fe = BatchNormalization()(fe)
+  #fe = BatchNormalization()(fe)
   fe = LeakyReLU(alpha=0.2)(fe)
   
   # downsample 4x4x512 -> 1
@@ -44,6 +44,8 @@ def define_discriminator(in_shape=(32,32,3), n_classes=10, learning_rate = 0.000
   fe = Flatten()(fe)
   # Global Pooling feature maps
   #fe = GlobalAveragePooling2D()(fe)
+  # dropout
+  fe = Dropout(0.4)(fe)
   # output layer nodes
   fe = Dense(n_classes)(fe)
   
@@ -59,9 +61,13 @@ def define_discriminator(in_shape=(32,32,3), n_classes=10, learning_rate = 0.000
   
   # unsupervised output
   d_out_layer = Lambda(custom_activation)(fe)
+  
+  # optimizer
+  optimizer_grad = Adam(lr=learning_rate, beta_1=0.5)
+  
   # define and compile unsupervised discriminator model
   unsupervised_model = Model(in_image, d_out_layer)
-  unsupervised_model.compile(loss='binary_crossentropy', optimizer=optimizer_grad)
+  unsupervised_model.compile(loss='binary_crossentropy', optimizer=optimizer_grad, metrics=['accuracy'])
   
   return unsupervised_model, supervised_model
 
