@@ -32,7 +32,7 @@ You can find the Notebook associate [here](/SSGAN_Keras_MNIST.ipynb).
 | ------------------- | ------------------- | ------------------- |
 |  ![MNIST original](/Results/MNIST/original.png) |  ![MNIST Generated](/Results/MNIST/generated.png) | ![MNIST Loss](/Results/MNIST/GAN_loss.png) |
 
-We achieve 97.190\% in testing:
+We achieve 97.190\% in classification testing:
 
 | Loss  |  Accuracy  |
 | ------------------- | ------------------- |
