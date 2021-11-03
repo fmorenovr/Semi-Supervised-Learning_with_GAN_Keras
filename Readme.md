@@ -30,9 +30,9 @@ You can find the Notebook associate [here](/SSGAN_Keras_MNIST.ipynb).
 
 | Original  |  Generated  | Loss |
 | ------------------- | ------------------- | ------------------- |
-|  ![MNIST original](/Results/MNIST/original.png) |  ![MNIST Generated](/Results/MNIST/generated_14000.png) | ![MNIST Loss](/Results/MNIST/GAN_loss.png) |
+|  ![MNIST original](/Results/MNIST/original.png) |  ![MNIST Generated](/Results/MNIST/generated.png) | ![MNIST Loss](/Results/MNIST/GAN_loss.png) |
 
-We achieve 93\% in testing:
+We achieve 97.190\% in testing:
 
 | Loss  |  Accuracy  |
 | ------------------- | ------------------- |
@@ -47,7 +47,14 @@ We train the model using 200 epochs, initial learning rate of 2e-5, Adam optimiz
 
 You can find the Notebook associate [here](/SSGAN_Keras_CIFAR10.ipynb).
 
-| Original  |  Generated  | Accuracy |
+
+| Original  |  Generated  | Loss |
 | ------------------- | ------------------- | ------------------- |
-|  ![CIFAR10 original](/Results/CIFAR10/original.png) |  ![CIFAR10 Generated](/Results/CIFAR10/generated_78000.png) | ![CIFAR10 Accuracy](/Results/CIFAR10/accuracy.png) |
+|  ![CIFAR10 original](/Results/CIFAR10/original.png) |  ![CIFAR10 Generated](/Results/CIFAR10/generated.png) | ![CIFAR10 Loss](/Results/CIFAR10/GAN_loss.png) |
+
+We achieve 93\% in testing:
+
+| Loss  |  Accuracy  |
+| ------------------- | ------------------- |
+|  ![CIFAR10 Loss](/Results/CIFAR10/train_test_loss.png) |  ![CIFAR10 Acc](/Results/CIFAR10/train_test_acc.png) |
 
