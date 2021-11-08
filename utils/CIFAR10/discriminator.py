@@ -13,8 +13,6 @@ from utils.networks import custom_activation
 # Both shared the same weights until the last Dense.
 
 # define the standalone supervised and unsupervised discriminator models
-
-
 def define_discriminator(in_shape=(32,32,3), n_classes=10, learning_rate = 0.0002):
   # image input
   in_image = Input(shape=in_shape)
@@ -24,32 +22,32 @@ def define_discriminator(in_shape=(32,32,3), n_classes=10, learning_rate = 0.000
   #fe = BatchNormalization()(fe)
   fe = LeakyReLU(alpha=0.2)(fe)
 
-  # downsample 32x32x32 -> 16x16x32
-  fe = Conv2D(32, (3, 3), strides=(2,2), padding='same')(in_image) # nn.Conv2d(3, 64, 4, 2, 1, bias=False)
+  # downsample 32x32x32 -> 16x16x64
+  fe = Conv2D(64, (3, 3), strides=(2,2), padding='same')(fe) # nn.Conv2d(3, 64, 4, 2, 1, bias=False)
   #fe = BatchNormalization()(fe)
   fe = LeakyReLU(alpha=0.2)(fe)
   # dropout
   fe = Dropout(0.2)(fe)
 
-  # downsample 16x16x32 -> 16x16x64
-  fe = Conv2D(64, (3, 3), strides=(1,1), padding='same')(in_image) # nn.Conv2d(3, 64, 4, 2, 1, bias=False)
+  # downsample 16x16x64 -> 16x16x64
+  fe = Conv2D(64, (3, 3), strides=(1,1), padding='same')(fe) # nn.Conv2d(3, 64, 4, 2, 1, bias=False)
   #fe = BatchNormalization()(fe)
   fe = LeakyReLU(alpha=0.2)(fe)
 
-  # downsample 16x16x64 -> 8x8x64
-  fe = Conv2D(64, (3, 3), strides=(2,2), padding='same')(in_image) # nn.Conv2d(3, 64, 4, 2, 1, bias=False)
+  # downsample 16x16x64 -> 8x8x128
+  fe = Conv2D(128, (3, 3), strides=(2,2), padding='same')(fe) # nn.Conv2d(3, 64, 4, 2, 1, bias=False)
   #fe = BatchNormalization()(fe)
   fe = LeakyReLU(alpha=0.2)(fe)
   # dropout
   fe = Dropout(0.2)(fe)
 
-  # downsample 8x8x64 -> 8x8x128
-  fe = Conv2D(128, (3, 3), strides=(1,1), padding='same')(in_image) # nn.Conv2d(3, 64, 4, 2, 1, bias=False)
+  # downsample 8x8x128 -> 8x8x128
+  fe = Conv2D(128, (3, 3), strides=(1,1), padding='same')(fe) # nn.Conv2d(3, 64, 4, 2, 1, bias=False)
   #fe = BatchNormalization()(fe)
   fe = LeakyReLU(alpha=0.2)(fe)
 
   # downsample 8x8x128 -> 4x4x256
-  fe = Conv2D(128, (3, 3), strides=(2,2), padding='same')(in_image) # nn.Conv2d(3, 64, 4, 2, 1, bias=False)
+  fe = Conv2D(256, (3, 3), strides=(2,2), padding='same')(fe) # nn.Conv2d(3, 64, 4, 2, 1, bias=False)
   #fe = BatchNormalization()(fe)
   fe = LeakyReLU(alpha=0.2)(fe)
   # dropout
