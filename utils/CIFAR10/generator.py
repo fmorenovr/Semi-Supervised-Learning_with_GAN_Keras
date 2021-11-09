@@ -21,18 +21,18 @@ def define_generator(latent_dim=100):
     # upsample 100 -> 4x4x512
     gen = Reshape((4, 4, 256))(gen)
     
-    # upsample 4x4x512 -> 8x8x256
-    gen = Conv2DTranspose(128, (4,4), strides=(2,2), padding="same")(gen)
+    # upsample 4x4x256 -> 8x8x128
+    gen = Conv2DTranspose(256, (4,4), strides=(2,2), padding="same")(gen)
     #gen = BatchNormalization()(gen)
     gen = LeakyReLU(alpha=0.2)(gen)
     
-    # upsample 8x8x256 -> 16x16x128
+    # upsample 8x8x128 -> 16x16x128
     gen = Conv2DTranspose(128, (4,4), strides=(2,2), padding='same')(gen)
     #gen = BatchNormalization()(gen)
     gen = LeakyReLU(alpha=0.2)(gen)
     
     # upsample 16x16x128 -> 32x32x64
-    gen = Conv2DTranspose(128, (4,4), strides=(2,2), padding='same')(gen)
+    gen = Conv2DTranspose(64, (4,4), strides=(2,2), padding='same')(gen)
     #gen = BatchNormalization()(gen)
     gen = LeakyReLU(alpha=0.2)(gen)
     
