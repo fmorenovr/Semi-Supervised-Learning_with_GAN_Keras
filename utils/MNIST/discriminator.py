@@ -8,7 +8,7 @@ from keras.layers import GlobalAveragePooling2D, BatchNormalization
 from utils.networks import custom_activation
 
 # define the standalone supervised and unsupervised discriminator models
-def define_discriminator(in_shape=(28,28,1), n_classes=10, learning_rate = 0.0001):
+def define_discriminator(in_shape=(28,28,1), n_classes=10, learning_rate = 0.0002):
   # image input
   in_image = Input(shape=in_shape)
   # downsample

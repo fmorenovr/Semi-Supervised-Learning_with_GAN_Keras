@@ -5,7 +5,7 @@ from keras.models import Model
 # We let the unsupervised model as not trainable, because we gonna trin the weights of the supervised model (which shares weights with the unsupervised).
 
 # define the combined generator and discriminator model, for updating the generator
-def define_gan(generator_model, unsupervised_model, learning_rate = 0.0001):
+def define_gan(generator_model, unsupervised_model, optimizer_grad = Adam(lr=0.0002, beta_1=0.5)):
   # make weights in the discriminator not trainable
   unsupervised_model.trainable = False
   
@@ -14,9 +14,6 @@ def define_gan(generator_model, unsupervised_model, learning_rate = 0.0001):
   
   # define gan model as taking noise and outputting a classification
   model = Model(generator_model.input, gan_output)
-  
-  # optimizer
-  optimizer_grad = Adam(lr=learning_rate, beta_1=0.5)
   
   # compile model
   model.compile(loss='binary_crossentropy', optimizer=optimizer_grad)
