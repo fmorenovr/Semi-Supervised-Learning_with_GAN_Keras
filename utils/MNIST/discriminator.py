@@ -31,7 +31,7 @@ def define_discriminator(in_shape=(28,28,1), n_classes=10, learning_rate = 0.000
   c_out_layer = Activation('softmax')(fe)
   
   # optimizer
-  optimizer_grad = Adam(lr=learning_rate, beta_1=0.15, beta_2=0.999)
+  optimizer_grad = Adam(lr=learning_rate, beta_1=0.15)
   
   # define and compile supervised discriminator model
   supervised_model = Model(in_image, c_out_layer)
@@ -41,7 +41,7 @@ def define_discriminator(in_shape=(28,28,1), n_classes=10, learning_rate = 0.000
   d_out_layer = Lambda(custom_activation)(fe)
   
   # optimizer
-  optimizer_grad = Adam(lr=learning_rate, beta_1=0.15, beta_2=0.999)
+  optimizer_grad = Adam(lr=learning_rate, beta_1=0.15)
   
   # define and compile unsupervised discriminator model
   unsupervised_model = Model(in_image, d_out_layer)
