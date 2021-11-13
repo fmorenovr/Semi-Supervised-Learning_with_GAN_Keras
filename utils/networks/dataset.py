@@ -15,7 +15,7 @@ def select_supervised_samples(dataset, n_classes=10, n_samples=None, label_rate=
     if n_samples is not None:
       ix = randint(0, len(X_with_class), n_per_class)
     if label_rate is not None:
-      ix = randint(0, len(X_with_class), int(len(X_with_class)*percent_samples))
+      ix = randint(0, len(X_with_class), int(len(X_with_class)*label_rate))
     # add to list
     [X_list.append(X_with_class[j]) for j in ix]
     [y_list.append(i) for j in ix]
