@@ -85,9 +85,6 @@ def define_discriminator(in_shape=(32,32,3), n_classes=10, learning_rate = 0.000
   # unsupervised output
   d_out_layer = Lambda(custom_activation)(fe)
   
-  # optimizer
-  optimizer_grad = Adam(lr=learning_rate, beta_1=0.5)
-  
   # define and compile unsupervised discriminator model
   unsupervised_model = Model(in_image, d_out_layer)
   unsupervised_model.compile(loss='binary_crossentropy', optimizer=optimizer_grad, metrics=['accuracy'])
