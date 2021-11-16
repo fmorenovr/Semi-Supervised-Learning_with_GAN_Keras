@@ -42,7 +42,7 @@ def define_discriminator(in_shape=(28,28,1), n_classes=10, learning_rate = 0.000
   
   # define and compile supervised discriminator model
   supervised_model = Model(in_image, c_out_layer)
-  supervised_model.compile(loss='sparse_categorical_crossentropy', optimizer=optimizer_grad, metrics=['accuracy', f1_score, auc])
+  supervised_model.compile(loss='sparse_categorical_crossentropy', optimizer=optimizer_grad, metrics=['accuracy', "mse", f1_score, auc])
   
   # unsupervised output
   d_out_layer = Lambda(custom_activation)(fe)
