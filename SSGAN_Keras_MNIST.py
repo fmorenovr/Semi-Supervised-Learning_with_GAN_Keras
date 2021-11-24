@@ -24,7 +24,7 @@ keras.__version__
 # In[ ]:
 
 
-# os.environ["CUDA_VISIBLE_DEVICES"]="1"
+os.environ["CUDA_VISIBLE_DEVICES"]="1"
 
 
 # In[ ]:
@@ -187,7 +187,8 @@ train_gan(generator_model, unsupervised_model, supervised_model, gan_model,
       dataset_train, dataset_test, latent_dim=latent_dim, 
       n_epochs=epochs, n_batch=batch_size, n_classes=num_classes, 
       # n_samples=labeled_samples)
-      label_rate=labeled_rate, unnormalize_image=False)
+      label_rate=labeled_rate, LOG_PATH=LOG_PATH,
+      unnormalize_image=False)
 
 
 # ### Testing

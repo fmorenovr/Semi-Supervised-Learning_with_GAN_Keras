@@ -7,7 +7,8 @@ from .dataset import *
 def train_gan(generator_model, unsupervised_model, supervised_model, gan_model, 
               dataset_train, dataset_test, 
               latent_dim=100, n_epochs=20, n_batch=100, 
-              n_classes=10, label_rate=None, n_samples=None, unnormalize_image=False):
+              n_classes=10, label_rate=None, n_samples=None, 
+              unnormalize_image=False, LOG_PATH=""):
     
     # select supervised dataset_train
     X_sup, y_sup = select_supervised_samples(dataset_train, 
