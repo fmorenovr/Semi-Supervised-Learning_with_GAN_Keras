@@ -1,4 +1,3 @@
-
 from keras.optimizers import Adam
 from keras.models import Model
 

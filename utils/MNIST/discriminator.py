@@ -1,4 +1,3 @@
-
 from keras.optimizers import Adam
 from keras.models import Model
 from keras.layers import Input, Dense, Reshape, Flatten, Conv2D, Conv2DTranspose
@@ -7,12 +6,8 @@ from keras.layers import GlobalAveragePooling2D, BatchNormalization
 
 from utils.networks import custom_activation
 
-from utils.networks import f1_score
-
-from tensorflow.keras.metrics import AUC
-
 # define the standalone supervised and unsupervised discriminator models
-def define_discriminator(in_shape=(28,28,1), n_classes=10, learning_rate = 0.0001):
+def define_discriminator(in_shape=(28,28,1), n_classes=10, learning_rate = 0.0001, metrics_list=["accuracy"]):
   # image input
   in_image = Input(shape=in_shape)
   # downsample
@@ -37,12 +32,9 @@ def define_discriminator(in_shape=(28,28,1), n_classes=10, learning_rate = 0.000
   # optimizer
   optimizer_grad = Adam(lr=learning_rate, beta_1=0.15)
 
-  # AUC
-  auc = AUC(curve='PR', name='auc')
-  
   # define and compile supervised discriminator model
   supervised_model = Model(in_image, c_out_layer)
-  supervised_model.compile(loss='sparse_categorical_crossentropy', optimizer=optimizer_grad, metrics=['accuracy', "mse", f1_score, auc])
+  supervised_model.compile(loss='categorical_crossentropy', optimizer=optimizer_grad, metrics=metrics_list)
   
   # unsupervised output
   d_out_layer = Lambda(custom_activation)(fe)
