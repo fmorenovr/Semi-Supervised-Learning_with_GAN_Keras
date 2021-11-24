@@ -1,7 +1,7 @@
 import numpy as np
 
 from .functions import plot_data, normalize, unnormalize
-from .dataset import generate_fake_samples, generate_latent_points
+from .dataset import *
 
 # train the generator and discriminator
 def train_gan(generator_model, unsupervised_model, supervised_model, gan_model, 
