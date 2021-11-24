@@ -112,18 +112,18 @@ def train_gan(generator_model, unsupervised_model, supervised_model, gan_model,
     for step in range(1,n_steps+1):
 #         t_start = time.time()
         # update supervised discriminator (c)
-        [Xsup_real, ysup_real], _ = generate_real_samples([X_sup, y_sup], n_batch)
+        [Xsup_real, ysup_real], _ = generate_real_samples([X_sup, y_sup], n_samples=n_batch)
         c_loss, c_acc, _, _, _ = supervised_model.train_on_batch(Xsup_real, ysup_real)
         
         # update unsupervised discriminator (d)
-        [X_real, _], y_real = generate_real_samples(dataset_train, n_batch)
+        [X_real, _], y_real = generate_real_samples(dataset_train, n_samples=n_batch)
         d_loss1, real_acc = unsupervised_model.train_on_batch(X_real, y_real)
         
-        X_fake, y_fake = generate_fake_samples(generator_model, latent_dim, n_batch)
+        X_fake, y_fake = generate_fake_samples(generator_model, latent_dim, n_samples=n_batch)
         d_loss2, fake_acc = unsupervised_model.train_on_batch(X_fake, y_fake)
         
         # update generator (g)
-        X_gan, y_gan = generate_latent_points(latent_dim, n_batch), np.ones((n_batch, 1))
+        X_gan, y_gan = generate_latent_points(latent_dim, n_samples=n_batch), np.ones((n_batch, 1))
         g_loss = gan_model.train_on_batch(X_gan, y_gan)
 #         t_total = (time.time() - t_start)
         # summarize loss on this batch
