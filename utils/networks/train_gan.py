@@ -44,8 +44,7 @@ def train_gan(generator_model, unsupervised_model, supervised_model, gan_model,
 #         t_start = time.time()
         # update supervised discriminator (c)
         [Xsup_real, ysup_real], _ = generate_real_samples([X_sup, y_sup], n_samples=n_batch)
-        train_batch_metrics = supervised_model.train_on_batch(Xsup_real, ysup_real, return_dict=True)
-        c_loss, c_acc = train_batch_metrics["loss"], train_batch_metrics["acc"]
+        c_loss, c_acc, _, _, _ = supervised_model.train_on_batch(Xsup_real, ysup_real, return_dict=True)
         
         # update unsupervised discriminator (d)
         [X_real, _], y_real = generate_real_samples(dataset_train, n_samples=n_batch)
