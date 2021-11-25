@@ -92,7 +92,7 @@ def train_gan(generator_model, unsupervised_model, supervised_model, gan_model,
             # prepare fake examples
             X_generated, _ = generate_fake_samples(generator_model, latent_dim, n_samples=100)
 
-            if unnormalize_images:
+            if unnormalize_image:
               # plot real samples
               plot_data(unnormalize(X_test).astype(int), 0, "test", grid_size = [10, 10], OUT_PATH=LOG_PATH)
             
@@ -129,7 +129,7 @@ def train_gan(generator_model, unsupervised_model, supervised_model, gan_model,
             # prepare fake examples
             X_generated, _ = generate_fake_samples(generator_model, latent_dim, n_samples=100)
 
-            if unnormalize_images:
+            if unnormalize_image:
               # scale from [-1,1] to [0,1]
               plot_data(unnormalize(X_generated).astype(int), step, "generated", grid_size = [10, 10], OUT_PATH=LOG_PATH)
             
@@ -141,7 +141,7 @@ def train_gan(generator_model, unsupervised_model, supervised_model, gan_model,
             # prepare fake examples
             X_generated, _ = generate_fake_samples(generator_model, latent_dim, n_samples=100)
 
-            if unnormalize_images:
+            if unnormalize_image:
               # scale from [-1,1] to [0,1]
               plot_data(unnormalize(X_generated).astype(int), step, "generated", grid_size = [10, 10], OUT_PATH=LOG_PATH)
             
