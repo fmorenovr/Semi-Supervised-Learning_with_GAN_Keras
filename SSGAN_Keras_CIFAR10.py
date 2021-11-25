@@ -129,7 +129,7 @@ from utils.networks import f1_score, auc_pr, precision_score, recall_score
 # In[ ]:
 
 
-metrics_list=["accuracy", f1_score, auc_pr]
+metrics_list=["accuracy", "mse", f1_score]
 
 
 # In[ ]:
