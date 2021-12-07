@@ -34,7 +34,6 @@ def train_gan(generator_model, unsupervised_model, supervised_model, gan_model,
                     "supervised_loss;supervised_acc;"\
                     "train_loss;test_loss;"\
                     "train_mse;test_mse;"\
-                    "train_f1;test_f1;"\
                     "train_acc;test_acc\n")
     
     #for epoch in n_epochs:
@@ -43,7 +42,8 @@ def train_gan(generator_model, unsupervised_model, supervised_model, gan_model,
 #         t_start = time.time()
         # update supervised discriminator (c)
         [Xsup_real, ysup_real], _ = generate_real_samples([X_sup, y_sup], n_samples=n_batch)
-        c_loss, c_acc, _, _ = supervised_model.train_on_batch(Xsup_real, ysup_real)
+        sup_results = supervised_model.train_on_batch(Xsup_real, ysup_real)
+        c_loss, c_acc = sup_results[0], sup_results[1]
         
         # update unsupervised discriminator (d)
         [X_real, _], y_real = generate_real_samples(dataset_train, n_samples=n_batch)
@@ -60,23 +60,21 @@ def train_gan(generator_model, unsupervised_model, supervised_model, gan_model,
     
         # Train - Test
         X_train, y_train = dataset_train
-        loss_train, acc_train, mse_train, f1_train = supervised_model.evaluate(X_train, y_train, verbose=0)
+        loss_train, acc_train, mse_train = supervised_model.evaluate(X_train, y_train, verbose=0)
 
         # evaluate the test classifier model
         X_test, y_test = dataset_test
-        loss_test, acc_test, mse_test, f1_test = supervised_model.evaluate(X_test, y_test, verbose=0)
+        loss_test, acc_test, mse_test = supervised_model.evaluate(X_test, y_test, verbose=0)
         
         # Log
         print('epoch: %d | step: %d | Train: G_Loss: %.3f, ' \
               'D_unsup_loss_real: %.3f, D_unsup_acc_real:  %.2f, ' \
               'D_unsup_loss_fake: %.3f, D_unsup_acc_fake: %.2f, ' \
               'D_sup_loss: %.3f, D_sup_acc: %.2f ' \
-              'Train f1: %.3f Test f1: %.3f ' \
               'Train acc: %.3f Test acc: %.3f ' %(int(step/bat_per_epo), step, g_loss,
                                                 d_loss1, real_acc*100,
                                                 d_loss2, fake_acc*100,
                                                 c_loss, c_acc*100,
-                                                f1_train, f1_test,
                                                 acc_train*100, acc_test*100))#, end = '\r')
         
         f_history.write(f"{step};{g_loss};"\
@@ -85,7 +83,6 @@ def train_gan(generator_model, unsupervised_model, supervised_model, gan_model,
                         f"{c_loss};{c_acc*100};"\
                         f"{loss_train};{loss_test};"\
                         f"{mse_train};{mse_test};"\
-                        f"{f1_train};{f1_test};"\
                         f"{acc_train*100};{acc_test*100}\n")
         
         if step==1:
@@ -108,13 +105,15 @@ def train_gan(generator_model, unsupervised_model, supervised_model, gan_model,
             
             # evaluate train set
             X_train, y_train = dataset_train
-            _, acc, _, f1 = supervised_model.evaluate(X_train, y_train, verbose=1)
-            print('Train Classifier Accuracy: %.3f%%, F1: %.3f%% \n' % (acc * 100, f1))
+            train_results = supervised_model.evaluate(X_train, y_train, verbose=1)
+            acc = train_results[1]
+            print('Train Classifier Accuracy: %.3f%%\n' % (acc * 100))
             
             # evaluate the test classifier model
             X_test, y_test = dataset_test
-            _, acc, _, f1 = supervised_model.evaluate(X_test, y_test, verbose=1)
-            print('Test Classifier Accuracy: %.3f%%, F1: %.3f%% \n' % (acc * 100, f1))
+            test_results = supervised_model.evaluate(X_test, y_test, verbose=1)
+            acc = test_results[1]
+            print('Test Classifier Accuracy: %.3f%% \n' % (acc * 100))
             
             # save the generator model
             filename2 = f'{LOG_PATH}generator_model_{step}.h5'
@@ -151,13 +150,15 @@ def train_gan(generator_model, unsupervised_model, supervised_model, gan_model,
             
             # evaluate train set
             X_train, y_train = dataset_train
-            _, acc, _, f1 = supervised_model.evaluate(X_train, y_train, verbose=1)
-            print('Train Classifier Accuracy: %.3f%%, F1: %.3f%% \n' % (acc * 100, f1))
+            train_results = supervised_model.evaluate(X_train, y_train, verbose=1)
+            acc = train_results[1]
+            print('Train Classifier Accuracy: %.3f%%\n' % (acc * 100))
             
             # evaluate the test classifier model
             X_test, y_test = dataset_test
-            _, acc, _, f1 = supervised_model.evaluate(X_test, y_test, verbose=1)
-            print('Test Classifier Accuracy: %.3f%%, F1: %.3f%% \n' % (acc * 100, f1))
+            test_results = supervised_model.evaluate(X_test, y_test, verbose=1)
+            acc = test_results[1]
+            print('Test Classifier Accuracy: %.3f%% \n' % (acc * 100))
             
             # save the generator model
             filename2 = f'{LOG_PATH}generator_model_{step}.h5'

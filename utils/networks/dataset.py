@@ -3,19 +3,22 @@ import numpy as np
 from numpy.random import randn, randint
 
 # select a supervised subset of the dataset, ensures classes are balanced
-def select_supervised_samples(dataset, n_classes=10, n_samples=None, label_rate=None):
+def select_supervised_samples(dataset, n_classes=10, n_samples=None, label_rate=None, seed=42):
   X, y = dataset
   X_list, y_list = list(), list()
   if n_samples is not None:
     n_per_class = int(n_samples / n_classes)
+  
+  random_state = np.random.RandomState(seed=seed)
+  
   for i in range(n_classes):
     # get all images for this class
     X_with_class = X[y == i]
     # choose random instances
     if n_samples is not None:
-      ix = randint(0, len(X_with_class), n_per_class)
+      ix = random_state.randint(0, len(X_with_class), n_per_class)
     if label_rate is not None:
-      ix = randint(0, len(X_with_class), int(len(X_with_class)*label_rate))
+      ix = random_state.randint(0, len(X_with_class), int(len(X_with_class)*label_rate))
     # add to list
     [X_list.append(X_with_class[j]) for j in ix]
     [y_list.append(i) for j in ix]
