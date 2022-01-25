@@ -43,7 +43,7 @@ We achieve 97.190\% in classification testing:
 
 CIFAR10 is a 10-class dataset containing images in RGB format. The data is composed by images of 10 different kind of objects like horses, frogs, dogs, cats, etc (as you see below).
 
-We train the model using 200 epochs, initial learning rate of 2e-5, Adam optimizer, 128 Batch size, and a label rate of 1.00 (all labeled dataset).
+We train the model using 500 epochs, initial learning rate of 2e-5, Adam optimizer, 128 Batch size, and a label rate of 1.00 (all labeled dataset).
 
 You can find the Notebook associate [here](/SSGAN_Keras_CIFAR10.ipynb).
 
@@ -52,7 +52,7 @@ You can find the Notebook associate [here](/SSGAN_Keras_CIFAR10.ipynb).
 | ------------------- | ------------------- | ------------------- |
 |  ![CIFAR10 original](/Results/CIFAR10/original.png) |  ![CIFAR10 Generated](/Results/CIFAR10/generated.png) | ![CIFAR10 Loss](/Results/CIFAR10/GAN_loss.png) |
 
-We achieve 93\% in testing:
+We achieve 75\% in testing:
 
 | Loss  |  Accuracy  |
 | ------------------- | ------------------- |

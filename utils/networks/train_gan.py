@@ -136,6 +136,27 @@ def train_gan(generator_model, unsupervised_model, supervised_model, gan_model,
               # scale from [-1,1] to [0,1]
               plot_data(X_generated, step, "generated", grid_size = [10, 10], OUT_PATH=LOG_PATH, gray=True)
             
+            # evaluate train set
+            X_train, y_train = dataset_train
+            train_results = supervised_model.evaluate(X_train, y_train, verbose=1)
+            acc = train_results[1]
+            print('Train Classifier Accuracy: %.3f%%\n' % (acc * 100))
+            
+            # evaluate the test classifier model
+            X_test, y_test = dataset_test
+            test_results = supervised_model.evaluate(X_test, y_test, verbose=1)
+            acc = test_results[1]
+            print('Test Classifier Accuracy: %.3f%% \n' % (acc * 100))
+            
+            # save the generator model
+            filename2 = f'{LOG_PATH}generator_model_{step}.h5'
+            generator_model.save(filename2)
+            # save the classifier model
+            filename3 = f'{LOG_PATH}supervised_model_{step}.h5'
+            supervised_model.save(filename3)
+            
+            print('>Saving models Generator: %s and Supervised: %s' % (filename2, filename3))
+            
         elif (step) % (bat_per_epo) == 0:
             # prepare fake examples
             X_generated, _ = generate_fake_samples(generator_model, latent_dim, n_samples=100)
